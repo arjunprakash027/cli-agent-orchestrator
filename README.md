@@ -49,6 +49,7 @@ For detailed project structure and architecture, see [CODEBASE.md](CODEBASE.md).
 - **Python 3.10 or higher** — see [pyproject.toml](pyproject.toml)
 - **tmux 3.3+** — used for agent session isolation
 - **[uv](https://docs.astral.sh/uv/)** — fast Python package installer and virtual environment manager
+- **Node.js 18+ and npm** — required for building the Web UI when installing from source or git
 
 ### 1. Install Python 3.10+
 
@@ -90,11 +91,11 @@ source $HOME/.local/bin/env   # Add uv to PATH (or restart your shell)
 uv tool install git+https://github.com/awslabs/cli-agent-orchestrator.git@main --upgrade
 ```
 
-This pulls the latest `main` commit and includes the pre-built Web UI inside the wheel, so **you do not need Node.js or `npm install` to use CAO**. Node.js is only required if you plan to run the frontend in dev mode (hot-reload) or rebuild the bundle yourself — see [docs/web-ui.md](docs/web-ui.md).
+This pulls the latest `main` commit and automatically builds the Web UI on the fly using a custom build hook (which requires Node.js 18+ and npm to be installed on your system).
 
 #### Install from PyPI (optional)
 
-PyPI publishes tagged releases only, so it will lag behind `main` between releases. Prefer the `git+` install above if you want the latest fixes.
+PyPI publishes pre-built tagged releases that already include the bundled Web UI, so **you do not need Node.js or npm** if you install this way:
 
 ```bash
 uv tool install cli-agent-orchestrator --upgrade
