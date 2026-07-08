@@ -477,14 +477,14 @@ class ResourceStatsCollector:
         return pids
 
     def get_cached_process(self, pid: int) -> Optional[psutil.Process]:
-        if pid in self._process_cache:
-            return self._process_cache[pid]
-        try:
-            proc = psutil.Process(pid)
-            self._process_cache[pid] = proc
-            return proc
-        except Exception:
-            return None
+        
+        if pid not in self._process_cache:
+            try:
+                self._process_cache[pid] = psutil.Process(pid)
+            except Exception:
+                return None
+        
+        return self._process_cache[pid]
 
     def update(self) -> None:
         """Query CPU/Memory metrics and update internal state."""
