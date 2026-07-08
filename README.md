@@ -157,18 +157,26 @@ cao-server
 
 ### 3. Launch the supervisor
 
-In another terminal:
+In another terminal, navigate to the project directory you want the agents to work in, and launch the supervisor. 
 
 ```bash
+# Navigate to your target project folder
+cd /path/to/your/project
+
+# Launch the default supervisor in the current directory
 cao launch --agents code_supervisor
 
-# Or specify a provider
+# Launch with a specific provider (e.g. Claude Code)
 cao launch --agents code_supervisor --provider claude_code
-# Valid: kiro_cli | claude_code | codex | antigravity_cli | hermes | kimi_cli | copilot_cli | opencode_cli | cursor_cli
 
-# Unrestricted access, skip confirmation (DANGEROUS)
+# Launch in a specific directory without changing your current folder
+cao launch --agents code_supervisor --provider claude_code --working-directory /path/to/your/project
+
+# Unrestricted tool access, skip confirmation (DANGEROUS)
 cao launch --agents code_supervisor --yolo
 ```
+
+> **Valid Providers:** `kiro_cli` | `claude_code` | `codex` | `antigravity_cli` | `hermes` | `kimi_cli` | `copilot_cli` | `opencode_cli` | `cursor_cli`
 
 The supervisor coordinates and delegates tasks to worker agents using the orchestration patterns.
 
