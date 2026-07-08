@@ -62,10 +62,10 @@ event_log_publisher = "cli_agent_orchestrator.plugins.builtin.event_log_publishe
 mcp_apps = "cli_agent_orchestrator.plugins.builtin.mcp_apps:McpAppsPlugin"
 
 [project.urls]
-Homepage = "https://github.com/arjunprakash027/cli-agent-orchestrator"
-Repository = "https://github.com/arjunprakash027/cli-agent-orchestrator"
-Issues = "https://github.com/arjunprakash027/cli-agent-orchestrator/issues"
-Documentation = "https://github.com/arjunprakash027/cli-agent-orchestrator#readme"
+Homepage = "https://github.com/arjunprakash027/swarmshell"
+Repository = "https://github.com/arjunprakash027/swarmshell"
+Issues = "https://github.com/arjunprakash027/swarmshell/issues"
+Documentation = "https://github.com/arjunprakash027/swarmshell#readme"
 
 [build-system]
 requires = ["hatchling"]

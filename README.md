@@ -1,12 +1,12 @@
-# CLI Agent Orchestrator (CAO)
+# Swarmshell
 
 [![PyPI version](https://img.shields.io/pypi/v/cli-agent-orchestrator.svg)](https://pypi.org/project/cli-agent-orchestrator/)
 [![Python versions](https://img.shields.io/pypi/pyversions/cli-agent-orchestrator.svg)](https://pypi.org/project/cli-agent-orchestrator/)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/arjunprakash027/cli-agent-orchestrator)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/arjunprakash027/swarmshell)
 
-**CLI Agent Orchestrator (CAO)** is an open-source multi-agent orchestration framework for AI coding CLIs — Claude Code, Kiro CLI, Codex CLI, Antigravity CLI, Hermes Agent, Kimi CLI, GitHub Copilot CLI, OpenCode, and Cursor CLI. CAO runs each agent in an isolated tmux session and coordinates them with a supervisor–worker pattern over the Model Context Protocol (MCP), so one supervisor agent can delegate tasks to multiple specialist agents in parallel, sequentially, or as a swarm.
+**Swarmshell** is an open-source multi-agent orchestration framework for AI coding CLIs — Claude Code, Kiro CLI, Codex CLI, Antigravity CLI, Hermes Agent, Kimi CLI, GitHub Copilot CLI, OpenCode, and Cursor CLI. Swarmshell runs each agent in an isolated tmux session and coordinates them with a supervisor–worker pattern over the Model Context Protocol (MCP), so one supervisor agent can delegate tasks to multiple specialist agents in parallel, sequentially, or as a swarm.
 
-## What is CAO?
+## What is Swarmshell?
 
 CAO (pronounced "kay-oh") is a lightweight local orchestrator that sits between you and the CLI coding agents you already use. Instead of running a single agent at a time, CAO lets a supervisor agent launch, message, and coordinate multiple worker agents — each one a real CLI tool (Claude Code, Kiro, Codex, etc.) running in its own tmux terminal. Agents communicate through MCP-exposed primitives (**handoff**, **assign**, and **send_message**) and are managed via a CLI, a bundled Web UI, or an MCP management server. Because every agent is a full CLI process, CAO preserves tool behaviour, auth, and advanced features (Claude Code sub-agents, Kiro CLI custom agents, etc.) that a raw API wrapper cannot.
 
@@ -75,7 +75,7 @@ python3 --version   # 3.10 or higher
 ### 2. Install tmux (3.3+)
 
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/arjunprakash027/cli-agent-orchestrator/refs/heads/main/tmux-install.sh)
+bash <(curl -s https://raw.githubusercontent.com/arjunprakash027/swarmshell/refs/heads/main/tmux-install.sh)
 ```
 
 ### 3. Install uv
@@ -85,10 +85,10 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 source $HOME/.local/bin/env   # Add uv to PATH (or restart your shell)
 ```
 
-### 4. Install CLI Agent Orchestrator
+### 4. Install Swarmshell
 
 ```bash
-uv tool install git+https://github.com/arjunprakash027/cli-agent-orchestrator.git@main --upgrade
+uv tool install git+https://github.com/arjunprakash027/swarmshell.git@main --upgrade
 ```
 
 This pulls the latest `main` commit and automatically builds the Web UI on the fly using a custom build hook (which requires Node.js 18+ and npm to be installed on your system).
@@ -346,7 +346,7 @@ For Claude Code, add to `.mcp.json`:
   "mcpServers": {
     "cao-ops-mcp": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/arjunprakash027/cli-agent-orchestrator.git@main", "cao-ops-mcp-server"]
+      "args": ["--from", "git+https://github.com/arjunprakash027/swarmshell.git@main", "cao-ops-mcp-server"]
     }
   }
 }
@@ -355,7 +355,7 @@ For Claude Code, add to `.mcp.json`:
 Other agents: use the equivalent stdio MCP command:
 
 ```
-uvx --from git+https://github.com/arjunprakash027/cli-agent-orchestrator.git@main cao-ops-mcp-server
+uvx --from git+https://github.com/arjunprakash027/swarmshell.git@main cao-ops-mcp-server
 ```
 
 **Available tools** — `list_profiles`, `get_profile_details`, `install_profile`, `launch_session`, `send_session_message`, `list_sessions`, `get_session_info`, `shutdown_session`.

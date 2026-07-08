@@ -1,6 +1,6 @@
 # Development Guide
 
-This guide covers setting up your development environment and running tests for the CLI Agent Orchestrator project.
+This guide covers setting up your development environment and running tests for the Swarmshell project.
 
 ## Prerequisites
 
@@ -14,8 +14,8 @@ This guide covers setting up your development environment and running tests for 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/arjunprakash027/cli-agent-orchestrator.git
-cd cli-agent-orchestrator/
+git clone https://github.com/arjunprakash027/swarmshell.git
+cd swarmshell/
 ```
 
 ### 2. Install Dependencies
