@@ -15,6 +15,7 @@ from contextlib import asynccontextmanager
 from datetime import datetime
 from pathlib import Path
 from typing import Annotated, Dict, List, Optional, cast
+import psutil
 
 from fastapi import (
     BackgroundTasks,
@@ -399,6 +400,23 @@ class MemoryDetail(MemorySummary):
     content: str
 
 
+class SystemStats(BaseModel):
+    cpu_percent: float
+    memory_percent: float
+    memory_used_gb: float
+    memory_total_gb: float
+
+
+class AgentStats(BaseModel):
+    cpu_percent: float
+    memory_used_mb: float
+
+
+class ResourceStatsResponse(BaseModel):
+    system: SystemStats
+    agents: AgentStats
+
+
 class CreateFlowRequest(BaseModel):
     """Request model for creating a flow."""
 
@@ -417,6 +435,119 @@ class CreateFlowRequest(BaseModel):
         return v
 
 
+class ResourceStatsCollector:
+    """Collects and stores system and agent resource utilization metrics."""
+
+    def __init__(self) -> None:
+        self.system_stats = {
+            "cpu_percent": 0.0,
+            "memory_percent": 0.0,
+            "memory_used_gb": 0.0,
+            "memory_total_gb": 0.0
+        }
+        self.agent_stats = {
+            "cpu_percent": 0.0,
+            "memory_used_mb": 0.0
+        }
+        self._process_cache: Dict[int, psutil.Process] = {}
+
+    def get_tmux_pids(self) -> List[int]:
+        pids = []
+        try:
+            import subprocess
+            result = subprocess.run(
+                ["tmux", "list-panes", "-a", "-F", "#{session_name} #{pane_pid}"],
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            for line in result.stdout.strip().split("\n"):
+                if not line:
+                    continue
+                parts = line.split()
+                if len(parts) == 2:
+                    session_name, pane_pid = parts
+                    if session_name.startswith("cao-"):
+                        try:
+                            pids.append(int(pane_pid))
+                        except ValueError:
+                            pass
+        except Exception:
+            pass
+        return pids
+
+    def get_cached_process(self, pid: int) -> Optional[psutil.Process]:
+        if pid in self._process_cache:
+            return self._process_cache[pid]
+        try:
+            proc = psutil.Process(pid)
+            self._process_cache[pid] = proc
+            return proc
+        except Exception:
+            return None
+
+    def update(self) -> None:
+        """Query CPU/Memory metrics and update internal state."""
+        try:
+            # 1. System stats
+            sys_cpu = psutil.cpu_percent(interval=None)
+            sys_mem = psutil.virtual_memory()
+            self.system_stats["cpu_percent"] = sys_cpu
+            self.system_stats["memory_percent"] = sys_mem.percent
+            self.system_stats["memory_used_gb"] = round(sys_mem.used / (1024 ** 3), 2)
+            self.system_stats["memory_total_gb"] = round(sys_mem.total / (1024 ** 3), 2)
+
+            # 2. Agent stats
+            agent_pids = self.get_tmux_pids()
+            active_pids = set()
+            total_agent_cpu = 0.0
+            total_agent_mem = 0.0
+
+            for pid in agent_pids:
+                proc = self.get_cached_process(pid)
+                if not proc:
+                    continue
+                
+                procs = [proc]
+                try:
+                    procs.extend(proc.children(recursive=True))
+                except Exception:
+                    pass
+                
+                for p in procs:
+                    active_pids.add(p.pid)
+                    try:
+                        if p.pid not in self._process_cache:
+                            self._process_cache[p.pid] = p
+                        cached_p = self._process_cache[p.pid]
+                        total_agent_cpu += cached_p.cpu_percent(interval=None)
+                        total_agent_mem += cached_p.memory_info().rss
+                    except Exception:
+                        pass
+
+            # Clean cache of dead processes
+            dead_pids = set(self._process_cache.keys()) - active_pids
+            for pid in dead_pids:
+                self._process_cache.pop(pid, None)
+
+            self.agent_stats["cpu_percent"] = round(total_agent_cpu, 1)
+            self.agent_stats["memory_used_mb"] = round(total_agent_mem / (1024 * 1024), 1)
+
+        except Exception as e:
+            logger.error(f"Error updating resource stats: {e}")
+
+
+stats_collector = ResourceStatsCollector()
+
+
+async def resource_stats_daemon():
+    """Periodically collect CPU and Memory usage statistics."""
+    psutil.cpu_percent(interval=None)
+    while True:
+        stats_collector.update()
+        await asyncio.sleep(3)
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Application lifespan events."""
@@ -430,6 +561,7 @@ async def lifespan(app: FastAPI):
     # Run cleanup in background
     asyncio.create_task(asyncio.to_thread(cleanup_old_data))
     asyncio.create_task(cleanup_expired_memories())
+    asyncio.create_task(resource_stats_daemon())
 
     # Start flow daemon as background task
     daemon_task = asyncio.create_task(flow_daemon())
@@ -646,6 +778,14 @@ async def health_check():
             "herdr": _probe("herdr"),
             "claude": _probe("claude"),
         },
+    }
+
+
+@app.get("/system/stats", response_model=ResourceStatsResponse)
+async def get_system_stats():
+    return {
+        "system": stats_collector.system_stats,
+        "agents": stats_collector.agent_stats
     }
 
 

@@ -1,5 +1,5 @@
 import { useEffect, useState, Suspense } from 'react'
-import { api } from './api'
+import { api, ResourceStats } from './api'
 import { useStore } from './store'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { DashboardHome } from './components/DashboardHome'
@@ -55,6 +55,7 @@ export default function App() {
   const [tab, setTab] = useState<TabKey>('home')
   // Default false (fail-closed): a dead backend hides the tab rather than showing a broken panel
   const [memoryEnabled, setMemoryEnabled] = useState(false)
+  const [stats, setStats] = useState<ResourceStats | null>(null)
   const { sessions, connected, fetchSessions } = useStore()
 
   const visibleTabs = TABS.filter(t => t.key !== 'memory' || memoryEnabled)
@@ -64,8 +65,20 @@ export default function App() {
     api.getMemoryStatus()
       .then(s => setMemoryEnabled(s.enabled))
       .catch(() => {})
+    
+    const fetchStats = () => {
+      api.getResourceStats()
+        .then(setStats)
+        .catch(() => {})
+    }
+    fetchStats()
+    const statsInterval = setInterval(fetchStats, 5000)
+
     const interval = setInterval(fetchSessions, 10000)
-    return () => clearInterval(interval)
+    return () => {
+      clearInterval(interval)
+      clearInterval(statsInterval)
+    }
   }, [])
 
   // Keyboard shortcuts: Alt+1-N over the visible tabs
@@ -93,6 +106,22 @@ export default function App() {
           </div>
           <div className="flex items-center gap-4">
             <span className="text-xs text-gray-500">{sessions.length} session{sessions.length !== 1 ? 's' : ''}</span>
+            {stats && (
+              <div className="hidden md:flex items-center gap-3">
+                <div className="flex items-center gap-2 bg-gray-800/40 border border-gray-800 px-2.5 py-1 rounded-md text-[11px]" title="System Resources">
+                  <span className="text-gray-500 font-medium">SYS</span>
+                  <span className="text-gray-400">CPU <strong className="text-white font-semibold">{Math.round(stats.system.cpu_percent)}%</strong></span>
+                  <span className="w-px h-2.5 bg-gray-800"></span>
+                  <span className="text-gray-400">RAM <strong className="text-white font-semibold">{Math.round(stats.system.memory_percent)}%</strong></span>
+                </div>
+                <div className="flex items-center gap-2 bg-emerald-950/20 border border-emerald-900/30 px-2.5 py-1 rounded-md text-[11px]" title="Agent Resources">
+                  <span className="text-emerald-500 font-medium">AGENTS</span>
+                  <span className="text-gray-400">CPU <strong className="text-emerald-400 font-semibold">{stats.agents.cpu_percent}%</strong></span>
+                  <span className="w-px h-2.5 bg-emerald-900/30"></span>
+                  <span className="text-gray-400">RAM <strong className="text-emerald-400 font-semibold">{stats.agents.memory_used_mb} MB</strong></span>
+                </div>
+              </div>
+            )}
             <div className="flex items-center gap-1.5" title={connected ? 'Connected' : 'Disconnected'}>
               {connected ? (
                 <Wifi size={14} className="text-emerald-400" />

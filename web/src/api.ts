@@ -185,4 +185,24 @@ export const api = {
     fetchJSON<{ success: boolean }>(`/memory/${encodeURIComponent(key)}?scope=${encodeURIComponent(scope)}${scopeId ? `&scope_id=${encodeURIComponent(scopeId)}` : ''}`, { method: 'DELETE' }),
   clearMemories: (scope: string, scopeId?: string) =>
     fetchJSON<{ success: boolean; deleted_count: number }>(`/memory?scope=${encodeURIComponent(scope)}${scopeId ? `&scope_id=${encodeURIComponent(scopeId)}` : ''}`, { method: 'DELETE' }),
+
+  // Resource Stats
+  getResourceStats: () => fetchJSON<ResourceStats>('/system/stats'),
+}
+
+export interface SystemStats {
+  cpu_percent: number
+  memory_percent: number
+  memory_used_gb: number
+  memory_total_gb: number
+}
+
+export interface AgentStats {
+  cpu_percent: number
+  memory_used_mb: number
+}
+
+export interface ResourceStats {
+  system: SystemStats
+  agents: AgentStats
 }
