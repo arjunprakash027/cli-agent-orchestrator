@@ -14,7 +14,7 @@ This guide covers setting up your development environment and running tests for 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/awslabs/cli-agent-orchestrator.git
+git clone https://github.com/arjunprakash027/cli-agent-orchestrator.git
 cd cli-agent-orchestrator/
 ```
 
