@@ -10,6 +10,8 @@ export { STATUS_CONFIG }
 type TerminalStatus = 'IDLE' | 'PROCESSING' | 'COMPLETED' | 'WAITING_USER_ANSWER' | 'ERROR' | string | null
 
 export function StatusBadge({ status }: { status: TerminalStatus }) {
+  return null
+  /*
   const normalized = status ? status.toUpperCase() : null
   const config = (normalized && STATUS_CONFIG[normalized]) || UNKNOWN_CONFIG
 
@@ -19,4 +21,5 @@ export function StatusBadge({ status }: { status: TerminalStatus }) {
       <span className={`text-xs font-medium ${config.textClass}`}>{config.label}</span>
     </span>
   )
+  */
 }
