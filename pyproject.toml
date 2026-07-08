@@ -1,12 +1,12 @@
 [project]
-name = "cli-agent-orchestrator"
+name = "swarmshell"
 version = "2.2.0"
-description = "CLI Agent Orchestrator"
+description = "Multi-agent orchestration framework for AI coding CLIs"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "Apache-2.0"
 authors = [
-    { name = "AWS Labs" },
+    { name = "Arjun Prakash" },
 ]
 keywords = ["ai", "agents", "orchestration", "multi-agent", "tmux", "mcp", "cli", "codex", "claude-code", "kiro", "kimi"]
 classifiers = [
