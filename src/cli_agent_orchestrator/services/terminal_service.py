@@ -98,10 +98,27 @@ def inject_memory_context(first_message: str, terminal_id: str) -> str:
         _memory_injected_terminals.add(terminal_id)
 
     try:
+        import yaml
+        import os
+        from cli_agent_orchestrator.services.memory_service import MemoryService
+        
+        # Load agent startup prompts dynamically
+        prompts_file = os.path.join(os.path.dirname(__file__), "..", "prompts.yaml")
+        with open(prompts_file, "r") as f:
+            prompts_config = yaml.safe_load(f)
+        startup_prompts = prompts_config.get("agent_startup_prompts", [])
+        startup_text = "\n\n".join(startup_prompts)
+        
         svc = MemoryService()
         context = svc.get_curated_memory_context(terminal_id, task_description=first_message[:200])
+        
+        final_message = first_message
+        if startup_text:
+            final_message = startup_text + "\n\n" + final_message
         if context:
-            return context + "\n\n" + first_message
+            final_message = context + "\n\n" + final_message
+            
+        return final_message
     except Exception as e:
         logger.warning(f"Failed to inject memory context for terminal {terminal_id}: {e}")
     return first_message
@@ -192,7 +209,7 @@ async def create_terminal(
         terminal_id = generate_terminal_id()
 
         if not session_name:
-            session_name = generate_session_name()
+            session_name = generate_session_name(agent_profile)
 
         window_name = generate_window_name(agent_profile)
 

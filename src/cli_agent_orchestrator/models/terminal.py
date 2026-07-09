@@ -30,6 +30,7 @@ class Terminal(BaseModel):
     name: str = Field(..., description="Terminal/window name")
     provider: ProviderType = Field(..., description="CLI tool provider")
     session_name: str = Field(..., description="Session name")
+    session_title: Optional[str] = Field(None, description="Session title")
     agent_profile: Optional[str] = Field(None, description="Agent profile")
     caller_id: Optional[str] = Field(
         None, description="Terminal that created this one via handoff/assign (callback target)"

@@ -1398,6 +1398,27 @@ async def get_terminal_memory_context(terminal_id: TerminalId):
         )
 
 
+class SessionTitleUpdateRequest(BaseModel):
+    title: str
+
+@app.put("/terminals/{terminal_id}/session-title")
+async def update_terminal_session_title(
+    terminal_id: TerminalId,
+    request: SessionTitleUpdateRequest,
+    _scopes: List[str] = Depends(require_any_scope(SCOPE_WRITE, SCOPE_ADMIN)),
+):
+    """Update the session title for a terminal's tmux session."""
+    try:
+        from cli_agent_orchestrator.clients.database import update_terminal_session_title
+        update_terminal_session_title(terminal_id, request.title)
+        return {"success": True}
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to update session title: {str(e)}",
+        )
+
+
 @app.get("/terminals/{terminal_id}/working-directory", response_model=WorkingDirectoryResponse)
 async def get_terminal_working_directory(terminal_id: TerminalId) -> WorkingDirectoryResponse:
     """Get the current working directory of a terminal's pane."""

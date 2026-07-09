@@ -41,6 +41,7 @@ class TerminalModel(Base):
     allowed_tools = Column(String, nullable=True)  # JSON-encoded list of CAO tool names
     shell_command = Column(String, nullable=True)  # shell process name captured before kiro launch
     caller_id = Column(String, nullable=True)  # terminal that created this one (callback target)
+    session_title = Column(String, nullable=True)  # AI-generated custom title for the session
     last_active = Column(DateTime, default=datetime.now)
 
 
@@ -493,6 +494,10 @@ def _migrate_terminals_schema() -> None:
             conn.execute("ALTER TABLE terminals ADD COLUMN caller_id TEXT")
             conn.commit()
             logger.info("Migration: added caller_id column to terminals table")
+        if "session_title" not in columns:
+            conn.execute("ALTER TABLE terminals ADD COLUMN session_title TEXT")
+            conn.commit()
+            logger.info("Migration: added session_title column to terminals table")
         conn.close()
     except Exception as e:
         logger.warning(f"Migration check for terminals schema failed: {e}")
@@ -558,6 +563,7 @@ def get_terminal_metadata(terminal_id: str) -> Optional[Dict[str, Any]]:
             "allowed_tools": allowed_tools,
             "shell_command": terminal.shell_command,
             "caller_id": terminal.caller_id,
+            "session_title": terminal.session_title,
             "last_active": terminal.last_active,
         }
 
@@ -573,10 +579,20 @@ def list_terminals_by_session(tmux_session: str) -> List[Dict[str, Any]]:
                 "tmux_window": t.tmux_window,
                 "provider": t.provider,
                 "agent_profile": t.agent_profile,
+                "session_title": t.session_title,
                 "last_active": t.last_active,
             }
             for t in terminals
         ]
+
+
+def update_terminal_session_title(terminal_id: str, session_title: str) -> None:
+    """Update the session title for a given terminal ID."""
+    with SessionLocal() as db:
+        terminal = db.query(TerminalModel).filter(TerminalModel.id == terminal_id).first()
+        if terminal:
+            terminal.session_title = session_title
+            db.commit()
 
 
 def update_last_active(terminal_id: str) -> bool:

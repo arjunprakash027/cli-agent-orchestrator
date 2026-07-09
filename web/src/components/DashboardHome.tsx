@@ -378,6 +378,8 @@ export function DashboardHome({ onNavigate }: { onNavigate: (tab: string) => voi
               return new Date(t.last_active) > new Date(latest) ? t.last_active : latest
             }, null)
 
+            const sessionTitle = session.terminals.find(t => t.session_title)?.session_title
+
             return (
               <div key={session.name} className="bg-gray-800/60 border border-gray-700/50 rounded-xl overflow-hidden relative">
                 {/* Delete session button */}
@@ -394,8 +396,15 @@ export function DashboardHome({ onNavigate }: { onNavigate: (tab: string) => voi
                   <div className="flex items-center gap-3">
                     {expandedSessions.has(session.name) ? <ChevronDown size={14} className="text-gray-500" /> : <ChevronRight size={14} className="text-gray-500" />}
                     <Users size={14} className="text-emerald-400" />
-                    <span className="text-sm font-mono text-gray-200">{session.name}</span>
-                    <span className="text-xs text-gray-500">{session.terminals.length} agent{session.terminals.length !== 1 ? 's' : ''}</span>
+                    {sessionTitle ? (
+                      <div className="flex flex-col items-start">
+                        <span className="text-sm font-semibold text-emerald-300">{sessionTitle}</span>
+                        <span className="text-[10px] font-mono text-gray-500">{session.name}</span>
+                      </div>
+                    ) : (
+                      <span className="text-sm font-mono text-gray-200">{session.name}</span>
+                    )}
+                    <span className="text-xs text-gray-500 ml-auto">{session.terminals.length} agent{session.terminals.length !== 1 ? 's' : ''}</span>
                   </div>
                   <div className="ml-8 mt-1.5 flex flex-col gap-1">
                     <div className="flex items-center gap-2 flex-wrap">

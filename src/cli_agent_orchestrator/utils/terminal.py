@@ -49,10 +49,17 @@ def validate_tmux_name(name: str, kind: str = "name") -> str:
     return name
 
 
-def generate_session_name() -> str:
-    """Generate a unique session name with SESSION_PREFIX."""
+def generate_session_name(agent_profile: str = "") -> str:
+    """Generate a unique session name with SESSION_PREFIX and optional agent profile name."""
     session_uuid = uuid.uuid4().hex[:8]
-    return validate_tmux_name(f"{SESSION_PREFIX}{session_uuid}", "session_name")
+    if agent_profile:
+        # Sanitize agent_profile to alphanumeric, underscores, hyphens
+        clean_profile = re.sub(r'[^A-Za-z0-9_\-]', '', agent_profile)
+        # Prefix (4) + '-' (1) + clean_profile (up to 49) + '-' (1) + uuid (8) = 63 max
+        name = f"{SESSION_PREFIX}{clean_profile[:49]}-{session_uuid}"
+    else:
+        name = f"{SESSION_PREFIX}{session_uuid}"
+    return validate_tmux_name(name, "session_name")
 
 
 def generate_terminal_id() -> str:

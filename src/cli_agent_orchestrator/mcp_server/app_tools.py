@@ -159,6 +159,21 @@ def _post_json(path: str, params: Optional[Dict[str, Any]] = None) -> Any:
         return {}
 
 
+def _put_json(path: str, payload: Optional[Dict[str, Any]] = None) -> Any:
+    """PUT ``{API_BASE_URL}{path}`` with JSON body and return parsed JSON."""
+    response = requests.put(
+        f"{API_BASE_URL}{path}",
+        json=payload or {},
+        headers=_auth_headers() or None,
+        timeout=MCP_REQUEST_TIMEOUT,
+    )
+    response.raise_for_status()
+    try:
+        return response.json()
+    except ValueError:
+        return {}
+
+
 def _delete_json(path: str) -> Any:
     """DELETE ``{API_BASE_URL}{path}`` and return parsed JSON (raises on HTTP error)."""
 
@@ -548,6 +563,24 @@ def register_app_tools(mcp: Any) -> bool:
         """Single mutation choke point: classify, scope-check, then route (Phase III)."""
         return _submit_command_impl(kind, payload or {})
 
+    @mcp.tool()
+    async def cao_set_session_title(title: str) -> Dict[str, Any]:
+        """Set a descriptive title for the current session based on the initial request.
+        
+        Args:
+            title: The descriptive title to display for this session (max 64 chars).
+        """
+        import os
+        current_terminal_id = os.environ.get("CAO_TERMINAL_ID")
+        if not current_terminal_id:
+            return {"success": False, "error": "CAO_TERMINAL_ID environment variable not found"}
+        
+        try:
+            return _put_json(f"/terminals/{current_terminal_id}/session-title", {"title": title[:64]})
+        except Exception as e:
+            logger.error("Failed to set session title: %s", e)
+            return {"success": False, "error": str(e)}
+
     ok = True
     ok &= _register(
         render_dashboard, "render_dashboard", ["model", "app"], DASHBOARD_RESOURCE_URI, None
@@ -560,6 +593,7 @@ def register_app_tools(mcp: Any) -> bool:
     )
     ok &= _register(subscribe_events, "subscribe_events", ["app"], EVENT_STREAM_RESOURCE_URI, None)
     ok &= _register(submit_command, "submit_command", ["app"], None, [SCOPE_WRITE, SCOPE_ADMIN])
+    ok &= _register(cao_set_session_title, "cao_set_session_title", ["app"], None, None)
 
     # Mount the ui://cao/* resources too (best-effort; independent of tool result).
     try:
