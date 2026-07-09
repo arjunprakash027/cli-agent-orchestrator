@@ -1,4 +1,4 @@
-"""Terminal commands for CLI Agent Orchestrator."""
+"""Terminal commands for Swarmshell."""
 
 import json
 import os

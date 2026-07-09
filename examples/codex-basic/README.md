@@ -20,7 +20,7 @@ This example demonstrates how to use the **Codex CLI provider** for basic AI age
    codex --version  # Verify installation
    ```
 
-3. **CLI Agent Orchestrator**: Installed and running
+3. **Swarmshell**: Installed and running
    ```bash
    cao-server  # Run in one terminal
    ```

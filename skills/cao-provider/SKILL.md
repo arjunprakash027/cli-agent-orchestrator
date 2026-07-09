@@ -1,11 +1,11 @@
 ---
 name: cao-provider
-description: Create a new CLI agent provider for CAO (CLI Agent Orchestrator). Use this skill whenever the user wants to add support for a new CLI-based AI agent (e.g., a new coding assistant CLI), integrate a new provider, or scaffold a provider implementation. Also use when the user asks about the provider architecture, what files to modify, or how providers work in CAO.
+description: Create a new CLI agent provider for CAO (Swarmshell). Use this skill whenever the user wants to add support for a new CLI-based AI agent (e.g., a new coding assistant CLI), integrate a new provider, or scaffold a provider implementation. Also use when the user asks about the provider architecture, what files to modify, or how providers work in CAO.
 ---
 
 # CAO Provider Creator
 
-Guide for creating a new CLI agent provider for CLI Agent Orchestrator. A "provider" is an adapter that lets CAO interact with a specific CLI-based AI agent through tmux.
+Guide for creating a new CLI agent provider for Swarmshell. A "provider" is an adapter that lets CAO interact with a specific CLI-based AI agent through tmux.
 
 ## What You're Building
 

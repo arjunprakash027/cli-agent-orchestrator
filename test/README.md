@@ -1,6 +1,6 @@
-# Test Suite for CLI Agent Orchestrator
+# Test Suite for Swarmshell
 
-This directory contains the unit and integration tests for the CLI Agent Orchestrator.
+This directory contains the unit and integration tests for the Swarmshell.
 
 ## Prerequisites
 

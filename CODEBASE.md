@@ -1,4 +1,4 @@
-# CLI Agent Orchestrator Codebase
+# Swarmshell Codebase
 
 ## Architecture Overview
 

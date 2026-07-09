@@ -5,7 +5,7 @@ description: Worker-side callback and completion rules for assigned and handed-o
 
 # CAO Worker Protocols
 
-Use this skill when acting as a worker agent inside CLI Agent Orchestrator.
+Use this skill when acting as a worker agent inside Swarmshell.
 
 This skill explains how workers should interpret assigned versus handed-off work, when to call `send_message`, and how to report results back cleanly.
 

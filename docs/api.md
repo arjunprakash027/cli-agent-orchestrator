@@ -1,4 +1,4 @@
-# CLI Agent Orchestrator API Documentation
+# Swarmshell API Documentation
 
 Base URL: `http://localhost:9889` (default)
 

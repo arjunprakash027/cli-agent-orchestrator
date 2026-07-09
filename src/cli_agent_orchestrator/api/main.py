@@ -551,7 +551,7 @@ async def resource_stats_daemon():
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Application lifespan events."""
-    logger.info("Starting CLI Agent Orchestrator server...")
+    logger.info("Starting Swarmshell server...")
     setup_logging()
     init_db()
     registry = PluginRegistry()
@@ -648,7 +648,7 @@ async def lifespan(app: FastAPI):
         pass
 
     await registry.teardown()
-    logger.info("Shutting down CLI Agent Orchestrator server...")
+    logger.info("Shutting down Swarmshell server...")
 
 
 def get_plugin_registry(request: Request) -> PluginRegistry:
@@ -681,8 +681,8 @@ def _build_pty_env() -> Dict[str, str]:
 
 
 app = FastAPI(
-    title="CLI Agent Orchestrator",
-    description="Simplified CLI Agent Orchestrator API",
+    title="Swarmshell",
+    description="Simplified Swarmshell API",
     version=SERVER_VERSION,
     lifespan=lifespan,
 )
@@ -2603,7 +2603,7 @@ def main():
 
     import uvicorn
 
-    parser = argparse.ArgumentParser(description="CLI Agent Orchestrator Server")
+    parser = argparse.ArgumentParser(description="Swarmshell Server")
     parser.add_argument(
         "--agents-dir",
         type=str,

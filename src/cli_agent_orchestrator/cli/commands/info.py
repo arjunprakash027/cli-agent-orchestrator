@@ -1,4 +1,4 @@
-"""Info command for CLI Agent Orchestrator CLI."""
+"""Info command for Swarmshell CLI."""
 
 import os
 import subprocess

@@ -4,7 +4,7 @@ This document describes how to use the official CAO devcontainer feature, how to
 
 ## Goal
 
-Install CLI Agent Orchestrator inside a devcontainer with one feature block, optionally build Web UI assets, and optionally autostart `cao-server`.
+Install Swarmshell inside a devcontainer with one feature block, optionally build Web UI assets, and optionally autostart `cao-server`.
 
 ## Options
 

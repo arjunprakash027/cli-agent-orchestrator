@@ -1,4 +1,4 @@
-"""Launch command for CLI Agent Orchestrator CLI."""
+"""Launch command for Swarmshell CLI."""
 
 import os
 import time

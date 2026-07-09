@@ -1,4 +1,4 @@
-"""Environment variable management commands for CLI Agent Orchestrator."""
+"""Environment variable management commands for Swarmshell."""
 
 import click
 

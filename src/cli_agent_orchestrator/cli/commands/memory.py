@@ -1,4 +1,4 @@
-"""Memory commands for CLI Agent Orchestrator CLI."""
+"""Memory commands for Swarmshell CLI."""
 
 import asyncio
 import os

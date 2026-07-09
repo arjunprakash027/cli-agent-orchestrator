@@ -1,4 +1,4 @@
-"""Session commands for CLI Agent Orchestrator."""
+"""Session commands for Swarmshell."""
 
 import json
 import sys

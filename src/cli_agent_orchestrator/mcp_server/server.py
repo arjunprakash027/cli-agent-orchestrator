@@ -1,4 +1,4 @@
-"""CLI Agent Orchestrator MCP Server implementation."""
+"""Swarmshell MCP Server implementation."""
 
 import logging
 import os
@@ -82,9 +82,9 @@ def _get_cleanup_nudge() -> str:
 mcp = FastMCP(
     "cao-mcp-server",
     instructions="""
-    # CLI Agent Orchestrator MCP Server
+    # Swarmshell MCP Server
 
-    This server provides tools to facilitate terminal delegation within CLI Agent Orchestrator sessions.
+    This server provides tools to facilitate terminal delegation within Swarmshell sessions.
 
     ## Best Practices
 

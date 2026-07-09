@@ -1,6 +1,6 @@
 # CAO Web UI
 
-A single-page dashboard for managing CLI Agent Orchestrator sessions, agents, flows, and settings from the browser.
+A single-page dashboard for managing Swarmshell sessions, agents, flows, and settings from the browser.
 
 ## Architecture
 

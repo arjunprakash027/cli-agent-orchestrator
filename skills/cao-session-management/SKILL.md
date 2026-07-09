@@ -1,6 +1,6 @@
 ---
 name: cao-session-management
-description: Interact with CAO (CLI Agent Orchestrator) — launch multi-agent sessions,
+description: Interact with CAO (Swarmshell) — launch multi-agent sessions,
   check status, send follow-up instructions, unblock stuck terminals, or shut down
   sessions. Use when working with CAO sessions in any capacity.
 ---

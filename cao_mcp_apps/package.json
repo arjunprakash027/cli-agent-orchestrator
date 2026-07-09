@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "MCP Apps (SEP-1865) UI surface for CLI Agent Orchestrator. Bundles to single-file HTML resources served via cao-mcp-server.",
+  "description": "MCP Apps (SEP-1865) UI surface for Swarmshell. Bundles to single-file HTML resources served via cao-mcp-server.",
   "scripts": {
     "prepare": "cd .. && husky cao_mcp_apps/.husky || true",
     "scan:jit": "node scripts/scan-jit.mjs",

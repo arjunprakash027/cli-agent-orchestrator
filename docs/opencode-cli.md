@@ -4,7 +4,7 @@
 
 ## Overview
 
-The OpenCode CLI provider enables CLI Agent Orchestrator (CAO) to work with **OpenCode**, a terminal-based AI assistant with a native agent system. OpenCode uses Markdown files with YAML frontmatter as its agent format — nearly identical to CAO's own profile format — making this integration especially clean.
+The OpenCode CLI provider enables Swarmshell (CAO) to work with **OpenCode**, a terminal-based AI assistant with a native agent system. OpenCode uses Markdown files with YAML frontmatter as its agent format — nearly identical to CAO's own profile format — making this integration especially clean.
 
 ## Prerequisites
 

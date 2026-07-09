@@ -1,1 +1,1 @@
-"""API tests for CLI Agent Orchestrator."""
+"""API tests for Swarmshell."""

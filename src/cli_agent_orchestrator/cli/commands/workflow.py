@@ -1,4 +1,4 @@
-"""Workflow authoring commands for the CLI Agent Orchestrator CLI (issue #312, N2).
+"""Workflow authoring commands for the Swarmshell CLI (issue #312, N2).
 
 Four authoring verbs — ``validate`` / ``list`` / ``get`` / ``delete`` — each a
 thin HTTP client against the ``/workflows`` endpoints on the running cao-server

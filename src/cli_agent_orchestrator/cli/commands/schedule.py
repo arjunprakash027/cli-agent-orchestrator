@@ -1,4 +1,4 @@
-"""Schedule commands for CLI Agent Orchestrator (scheduled agent flows)."""
+"""Schedule commands for Swarmshell (scheduled agent flows)."""
 
 import asyncio
 

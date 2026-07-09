@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "cao-discord"
 version = "0.1.0"
-description = "Discord webhook plugin for CLI Agent Orchestrator"
+description = "Discord webhook plugin for Swarmshell"
 requires-python = ">=3.10"
 dependencies = [
     "cli-agent-orchestrator",

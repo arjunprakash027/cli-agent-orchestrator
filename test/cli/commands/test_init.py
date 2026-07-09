@@ -37,7 +37,7 @@ class TestInitCommand:
             result = runner.invoke(init)
 
         assert result.exit_code == 0
-        assert "CLI Agent Orchestrator initialized successfully" in result.output
+        assert "Swarmshell initialized successfully" in result.output
         assert "Seeded 2 builtin skills." in result.output
         mock_init_db.assert_called_once()
         mock_seed.assert_called_once()

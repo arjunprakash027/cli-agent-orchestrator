@@ -1,4 +1,4 @@
-"""Constants for CLI Agent Orchestrator (CAO) application.
+"""Constants for Swarmshell (CAO) application.
 
 This module defines all configuration constants used throughout the CAO application,
 including directory paths, server settings, and provider configurations.

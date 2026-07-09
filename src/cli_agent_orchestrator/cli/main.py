@@ -1,4 +1,4 @@
-"""Main CLI entry point for CLI Agent Orchestrator."""
+"""Main CLI entry point for Swarmshell."""
 
 from importlib.metadata import PackageNotFoundError, version
 
@@ -28,7 +28,7 @@ except PackageNotFoundError:
 @click.group()
 @click.version_option(__version__, "-V", "--version", prog_name="cao")
 def cli():
-    """CLI Agent Orchestrator."""
+    """Swarmshell."""
 
 
 # Register commands

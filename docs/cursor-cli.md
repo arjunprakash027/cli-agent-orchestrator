@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Cursor CLI provider enables CLI Agent Orchestrator (CAO) to work with the **[Cursor CLI](https://cursor.com/cli)** (primary command: `agent`, historical alias: `cursor-agent`) — Anysphere's terminal-native AI coding assistant. Use it to drive Cursor alongside Claude Code, Kiro CLI, and the other providers already supported by CAO.
+The Cursor CLI provider enables Swarmshell (CAO) to work with the **[Cursor CLI](https://cursor.com/cli)** (primary command: `agent`, historical alias: `cursor-agent`) — Anysphere's terminal-native AI coding assistant. Use it to drive Cursor alongside Claude Code, Kiro CLI, and the other providers already supported by CAO.
 
 The provider implements the [BaseProvider](https://github.com/awslabs/cli-agent-orchestrator) interface, so it inherits support for handoff, assign, and send_message orchestration flows.
 

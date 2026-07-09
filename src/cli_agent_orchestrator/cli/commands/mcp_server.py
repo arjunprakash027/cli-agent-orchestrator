@@ -1,4 +1,4 @@
-"""MCP server command for CLI Agent Orchestrator CLI."""
+"""MCP server command for Swarmshell CLI."""
 
 import click
 

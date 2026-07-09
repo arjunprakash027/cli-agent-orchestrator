@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Copilot provider enables CLI Agent Orchestrator (CAO) to run **GitHub Copilot CLI** in tmux-managed sessions.
+The Copilot provider enables Swarmshell (CAO) to run **GitHub Copilot CLI** in tmux-managed sessions.
 
 This provider targets the current Copilot CLI surface (latest versions) and does not include legacy compatibility fallbacks.
 

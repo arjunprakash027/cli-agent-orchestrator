@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Kiro CLI provider enables CLI Agent Orchestrator (CAO) to work with **Kiro CLI**, an AI-powered coding assistant that operates through agent-based conversations with customizable profiles.
+The Kiro CLI provider enables Swarmshell (CAO) to work with **Kiro CLI**, an AI-powered coding assistant that operates through agent-based conversations with customizable profiles.
 
 ## Quick Start
 

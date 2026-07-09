@@ -9,7 +9,7 @@
 
 ## Reporting a Vulnerability
 
-We take the security of CLI Agent Orchestrator seriously. If you believe you have found a security vulnerability, please report it to us as described below.
+We take the security of Swarmshell seriously. If you believe you have found a security vulnerability, please report it to us as described below.
 
 ### How to Report
 
@@ -180,7 +180,7 @@ All agents are instructed to follow these constraints regardless of tool restric
 
 ## Security Best Practices
 
-When using CLI Agent Orchestrator:
+When using Swarmshell:
 
 1. **Keep Dependencies Updated**: Regularly update to the latest version to get security patches.
 

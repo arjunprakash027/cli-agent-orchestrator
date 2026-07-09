@@ -1,4 +1,4 @@
-"""Init command for CLI Agent Orchestrator CLI."""
+"""Init command for Swarmshell CLI."""
 
 import shutil
 from importlib import resources
@@ -33,12 +33,12 @@ def seed_default_skills() -> int:
 
 @click.command()
 def init():
-    """Initialize CLI Agent Orchestrator database."""
+    """Initialize Swarmshell database."""
     try:
         init_db()
         seeded_count = seed_default_skills()
         click.echo(
-            f"CLI Agent Orchestrator initialized successfully. "
+            f"Swarmshell initialized successfully. "
             f"Seeded {seeded_count} builtin skills."
         )
     except Exception as e:

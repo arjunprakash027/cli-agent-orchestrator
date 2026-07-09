@@ -1,4 +1,4 @@
-"""Config commands for CLI Agent Orchestrator CLI (issue #357)."""
+"""Config commands for Swarmshell CLI (issue #357)."""
 
 import json
 

@@ -5,7 +5,7 @@ description: Supervisor-side orchestration patterns for assign, handoff, and idl
 
 # CAO Supervisor Protocols
 
-Use this skill when supervising worker agents through CLI Agent Orchestrator.
+Use this skill when supervising worker agents through Swarmshell.
 
 This skill covers how supervisors should dispatch work, decide between `assign` and `handoff`, and receive worker results without blocking inbox delivery.
 

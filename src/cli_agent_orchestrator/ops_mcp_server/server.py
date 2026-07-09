@@ -23,7 +23,7 @@ mcp = FastMCP(
     instructions="""
     # CAO Operations MCP Server
 
-    Manage CLI Agent Orchestrator profiles and sessions from outside a CAO session.
+    Manage Swarmshell profiles and sessions from outside a CAO session.
     Requires the CAO API server running at localhost:9889.
 
     ## Typical Workflow

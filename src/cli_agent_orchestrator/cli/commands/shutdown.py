@@ -1,4 +1,4 @@
-"""Shutdown command for CLI Agent Orchestrator."""
+"""Shutdown command for Swarmshell."""
 
 import click
 import requests

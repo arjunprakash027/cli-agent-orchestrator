@@ -1,4 +1,4 @@
-"""Skill management commands for CLI Agent Orchestrator."""
+"""Skill management commands for Swarmshell."""
 
 import shutil
 from pathlib import Path

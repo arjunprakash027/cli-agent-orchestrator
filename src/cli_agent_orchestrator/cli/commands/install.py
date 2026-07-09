@@ -1,4 +1,4 @@
-"""Install command for CLI Agent Orchestrator."""
+"""Install command for Swarmshell."""
 
 import re
 from pathlib import Path

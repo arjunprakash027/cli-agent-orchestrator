@@ -1,4 +1,4 @@
-"""Session utilities for CLI Agent Orchestrator."""
+"""Session utilities for Swarmshell."""
 
 import asyncio
 import logging

@@ -1,5 +1,5 @@
 #!/usr/bin/env make -f
-# CLI Agent Orchestrator — maintenance targets.
+# Swarmshell — maintenance targets.
 #
 # Offline vendoring of the upstream MCP Apps builder skills
 # (modelcontextprotocol/ext-apps). See skills/vendor/ext-apps/README.md.

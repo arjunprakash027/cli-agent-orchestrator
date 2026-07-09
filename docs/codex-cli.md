@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Codex CLI provider enables CLI Agent Orchestrator (CAO) to work with **Codex CLI** (OpenAI's coding agent) through your OpenAI API key, allowing you to orchestrate multiple Codex-based agents.
+The Codex CLI provider enables Swarmshell (CAO) to work with **Codex CLI** (OpenAI's coding agent) through your OpenAI API key, allowing you to orchestrate multiple Codex-based agents.
 
 ## Quick Start
 

@@ -1,4 +1,4 @@
-"""Tests for CLI Agent Orchestrator constants."""
+"""Tests for Swarmshell constants."""
 
 from pathlib import Path
 from unittest.mock import patch

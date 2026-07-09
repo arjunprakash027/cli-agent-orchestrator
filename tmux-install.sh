@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # =============================================================================
-# CLI Agent Orchestrator - tmux Installation Script
+# Swarmshell - tmux Installation Script
 # =============================================================================
 # 
 # This script:
@@ -304,7 +304,7 @@ check_and_install_tmux() {
         else
             echo ""
             log_warning "Your tmux version ($tmux_version) is older than 3.3"
-            log_warning "CLI Agent Orchestrator requires tmux 3.3+ to function properly"
+            log_warning "Swarmshell requires tmux 3.3+ to function properly"
             echo ""
             
             # Check if tmux server is running
@@ -506,7 +506,7 @@ install_tmux_config() {
 # Main installation flow
 main() {
     echo "========================================"
-    echo "  CLI Agent Orchestrator"
+    echo "  Swarmshell"
     echo "  tmux Installation Script"
     echo "========================================"
     echo ""
@@ -532,7 +532,7 @@ main() {
 # Handle command line arguments
 case "${1:-}" in
     --help|-h)
-        echo "CLI Agent Orchestrator - tmux Installation Script"
+        echo "Swarmshell - tmux Installation Script"
         echo ""
         echo "Usage:"
         echo "  bash tmux-install.sh"

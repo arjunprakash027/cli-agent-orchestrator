@@ -17,7 +17,7 @@ class TestCliMain:
         result = runner.invoke(cli, ["--help"])
 
         assert result.exit_code == 0
-        assert "CLI Agent Orchestrator" in result.output
+        assert "Swarmshell" in result.output
 
     def test_cli_has_launch_command(self):
         """Test CLI has launch command."""
