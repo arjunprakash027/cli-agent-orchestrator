@@ -261,13 +261,13 @@ class ClaudeCodeProvider(BaseProvider):
         # CLAUDE_CODE_SKIP_*_AUTH (needed for provider authentication:
         # Bedrock, Vertex AI, Foundry), and CLAUDE_CODE_EFFORT_LEVEL (user pref).
         unset_cmd = (
-            "unset $(env | sed -n 's/^\\(CLAUDE[A-Z_]*\\)=.*/\\1/p'"
+            "vars=$(env | sed -n 's/^\\(CLAUDE[A-Z_]*\\)=.*/\\1/p'"
             " | grep -v -E 'CLAUDE_CODE_USE_(BEDROCK|VERTEX|FOUNDRY)"
             "|CLAUDE_CODE_SKIP_(BEDROCK|VERTEX|FOUNDRY)_AUTH"
-            "|CLAUDE_CODE_EFFORT_LEVEL'"
-            ") 2>/dev/null"
+            "|CLAUDE_CODE_EFFORT_LEVEL');"
+            " [ -n \"$vars\" ] && unset $vars"
         )
-        return f"{unset_cmd}; {claude_cmd}"
+        return f"sh -c {shlex.quote(f'{unset_cmd}; exec {claude_cmd}')}"
 
     @staticmethod
     def _ensure_skip_bypass_prompt_setting() -> None:
@@ -361,7 +361,7 @@ class ClaudeCodeProvider(BaseProvider):
             #    dialogs are handled explicitly above; if no banner ever appears the
             #    loop just waits out its timeout and the downstream
             #    wait_until_status() remains the real readiness gate.
-            if re.search(r"Welcome to|Claude Code v\d+", clean_output):
+            if re.search(r"Welcome to Claude|Claude Code v\d+", clean_output):
                 logger.info("Claude Code started without prompts")
                 return
 

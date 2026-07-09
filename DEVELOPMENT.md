@@ -106,7 +106,7 @@ uv run pytest test/providers/ -m "not integration" -v
 
 ### E2E Tests
 
-E2E tests require a running CAO server, authenticated CLI tools, and tmux:
+E2E tests require a running Swarmshell server, authenticated CLI tools, and tmux:
 
 ```bash
 # Run all E2E tests
@@ -367,7 +367,7 @@ cli-agent-orchestrator/
 │   ├── api/                       # API endpoint tests
 │   ├── cli/                       # CLI command tests
 │   ├── clients/                   # Client tests (database, tmux)
-│   ├── e2e/                       # End-to-end tests (require running CAO server)
+│   ├── e2e/                       # End-to-end tests (require running Swarmshell server)
 │   ├── mcp_server/                # MCP server tests
 │   ├── models/                    # Data model tests
 │   ├── providers/                 # Provider tests (unit + integration)
